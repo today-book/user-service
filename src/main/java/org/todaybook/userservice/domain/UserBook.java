@@ -62,8 +62,8 @@ public class UserBook {
   }
 
   public UserBook updateBook(Book book) {
-    validateBookId(this.bookId, book);
     validateBook(book);
+    verifyBookId(BookId.of(book.id()));
 
     this.book = book;
 
@@ -98,9 +98,9 @@ public class UserBook {
     }
   }
 
-  public void validateBookId(BookId bookId, Book book) {
-    if (!bookId.equals(BookId.of(book.id()))) {
-      throw new IllegalStateException("도서 아이디(bookId)는 수정할 수 없습니다.");
+  public void verifyBookId(BookId bookId) {
+    if (!bookId.equals(this.bookId)) {
+      throw new IllegalStateException("도서 아이디(bookId)는 변경할 수 없습니다.");
     }
   }
 }
