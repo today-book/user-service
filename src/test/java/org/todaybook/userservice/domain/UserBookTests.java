@@ -6,9 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 import org.todaybook.userservice.BookFixture;
 import org.todaybook.userservice.domain.dto.Book;
 
+@ActiveProfiles("test")
 class UserBookTests {
 
   @Test

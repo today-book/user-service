@@ -43,7 +43,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     implementation "org.todaybook:common-mvc:${commonVersion}"
-    runtimeOnly 'com.h2database:h2'
 
     // database
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
