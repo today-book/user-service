@@ -1,11 +1,11 @@
-package org.todaybook.userservice.domain.repository;
+package org.todaybook.userservice.userbook.domain.repository;
 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.repository.Repository;
-import org.todaybook.userservice.domain.BookId;
-import org.todaybook.userservice.domain.UserBook;
-import org.todaybook.userservice.domain.UserId;
+import org.todaybook.userservice.userbook.domain.BookId;
+import org.todaybook.userservice.userbook.domain.UserBook;
+import org.todaybook.userservice.userbook.domain.UserId;
 
 public interface UserBookRepository extends Repository<UserBook, Long> {
   Optional<UserBook> findById(Long id);

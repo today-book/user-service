@@ -3,10 +3,10 @@ package org.todaybook.userservice;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
-import org.todaybook.userservice.domain.BookId;
-import org.todaybook.userservice.domain.UserBook;
-import org.todaybook.userservice.domain.UserId;
-import org.todaybook.userservice.domain.dto.Book;
+import org.todaybook.userservice.userbook.domain.BookId;
+import org.todaybook.userservice.userbook.domain.UserBook;
+import org.todaybook.userservice.userbook.domain.UserId;
+import org.todaybook.userservice.userbook.domain.dto.Book;
 
 public class BookFixture {
 
