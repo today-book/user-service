@@ -10,7 +10,9 @@ import org.todaybook.userservice.userbook.domain.UserId;
 public interface UserBookRepository extends Repository<UserBook, Long> {
   Optional<UserBook> findById(Long id);
 
-  Optional<UserBook> findByUserId(UserId userId);
+  Optional<UserBook> findByUserIdAndBookId(UserId userId, BookId bookId);
+
+  List<UserBook> findByUserId(UserId userId);
 
   List<UserBook> findByUserIdAndBookIdIn(UserId userId, List<BookId> bookIds);
 
