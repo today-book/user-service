@@ -19,7 +19,7 @@ class UserBookTests {
   @Test
   @DisplayName("UserBook 생성 성공")
   void test1() {
-    UserId userId = UserId.of(1L);
+    UserId userId = UserId.generateId();
 
     BookId bookId = BookId.of(UUID.randomUUID());
     Book book = BookFixture.book(bookId.toUUID());
@@ -49,7 +49,8 @@ class UserBookTests {
     Book book = BookFixture.invalidBook(null);
 
     Exception exception =
-        assertThrows(IllegalArgumentException.class, () -> UserBook.create(UserId.of(1L), book));
+        assertThrows(
+            IllegalArgumentException.class, () -> UserBook.create(UserId.generateId(), book));
 
     System.out.println("message: " + exception.getMessage());
   }
@@ -60,7 +61,7 @@ class UserBookTests {
     UUID bookId = UUID.randomUUID();
 
     Book book1 = BookFixture.book(bookId);
-    UserBook userBook = UserBook.create(UserId.of(1L), book1);
+    UserBook userBook = UserBook.create(UserId.generateId(), book1);
 
     Book book2 = BookFixture.book(bookId);
 
@@ -73,7 +74,7 @@ class UserBookTests {
   @DisplayName("updateBook 실패 - 도서 아이디(bookId)가 다를 경우")
   void test5() {
     Book book1 = BookFixture.book(UUID.randomUUID());
-    UserBook userBook = UserBook.create(UserId.of(1L), book1);
+    UserBook userBook = UserBook.create(UserId.generateId(), book1);
 
     Book book2 = BookFixture.book(UUID.randomUUID());
 
@@ -89,7 +90,7 @@ class UserBookTests {
     UUID bookId = UUID.randomUUID();
 
     Book book1 = BookFixture.book(bookId);
-    UserBook userBook = UserBook.create(UserId.of(1L), book1);
+    UserBook userBook = UserBook.create(UserId.generateId(), book1);
 
     Book book2 = BookFixture.invalidBook(bookId);
 
