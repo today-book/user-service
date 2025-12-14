@@ -9,7 +9,9 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -20,6 +22,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @ToString
 @Table(schema = "member", name = "p_users")
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
   @EmbeddedId private UserId id;
