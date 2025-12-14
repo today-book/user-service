@@ -5,7 +5,8 @@ import org.todaybook.userservice.user.exception.UserInvalidRoleException;
 
 @Getter
 public enum Role {
-  USER, ADMIN;
+  USER,
+  ADMIN;
 
   public static Role fromString(String role) {
     if (role == null || role.isBlank()) {

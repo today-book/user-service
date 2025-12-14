@@ -15,11 +15,9 @@ public class RoleArrayConverter implements AttributeConverter<List<Role>, String
       return "{}";
     }
 
-    String joined = roles.stream()
-        .map(Enum::name)
-        .collect(Collectors.joining("\",\""));
+    String joined = roles.stream().map(Enum::name).collect(Collectors.joining("\",\""));
 
-    return "{\"" + joined +"\"}";
+    return "{\"" + joined + "\"}";
   }
 
   @Override
@@ -28,8 +26,7 @@ public class RoleArrayConverter implements AttributeConverter<List<Role>, String
       return List.of();
     }
 
-    return Arrays.stream(
-        s.replace("{", "").replace("}", "").replace("\"", "").split(","))
+    return Arrays.stream(s.replace("{", "").replace("}", "").replace("\"", "").split(","))
         .map(Role::fromString)
         .collect(Collectors.toList());
   }

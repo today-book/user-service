@@ -21,9 +21,10 @@ public class UserManageServiceImpl implements UserManageService {
   public User save(KakaoId kakaoId, String nickname) {
     repository
         .findByKakaoId(kakaoId)
-        .ifPresent(user -> {
-          throw new UserAlreadyExistsException(kakaoId);
-        });
+        .ifPresent(
+            user -> {
+              throw new UserAlreadyExistsException(kakaoId);
+            });
 
     User user = User.create(kakaoId, nickname);
 

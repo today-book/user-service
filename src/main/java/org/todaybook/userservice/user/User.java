@@ -24,11 +24,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class User {
 
-  @EmbeddedId
-  private UserId id;
+  @EmbeddedId private UserId id;
 
-  @Embedded
-  private KakaoId kakaoId;
+  @Embedded private KakaoId kakaoId;
 
   @Column(nullable = false)
   private String nickname;

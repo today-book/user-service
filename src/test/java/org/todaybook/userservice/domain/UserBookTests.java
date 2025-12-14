@@ -8,9 +8,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
 import org.todaybook.userservice.BookFixture;
+import org.todaybook.userservice.user.UserId;
 import org.todaybook.userservice.userbook.domain.BookId;
 import org.todaybook.userservice.userbook.domain.UserBook;
-import org.todaybook.userservice.user.UserId;
 import org.todaybook.userservice.userbook.domain.dto.Book;
 
 @ActiveProfiles("test")
