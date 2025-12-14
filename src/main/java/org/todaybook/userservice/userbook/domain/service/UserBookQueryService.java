@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 import org.todaybook.userservice.userbook.domain.BookId;
 import org.todaybook.userservice.userbook.domain.UserBook;
-import org.todaybook.userservice.userbook.domain.UserId;
+import org.todaybook.userservice.user.UserId;
 
 public interface UserBookQueryService {
 

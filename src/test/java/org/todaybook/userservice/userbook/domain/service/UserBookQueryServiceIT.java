@@ -20,7 +20,7 @@ import org.todaybook.userservice.BookFixture;
 import org.todaybook.userservice.config.PostgresContainerConfig;
 import org.todaybook.userservice.userbook.domain.BookId;
 import org.todaybook.userservice.userbook.domain.UserBook;
-import org.todaybook.userservice.userbook.domain.UserId;
+import org.todaybook.userservice.user.UserId;
 import org.todaybook.userservice.userbook.domain.dto.Book;
 import org.todaybook.userservice.userbook.domain.exception.UserBookNotFoundException;
 import org.todaybook.userservice.userbook.domain.repository.UserBookRepository;

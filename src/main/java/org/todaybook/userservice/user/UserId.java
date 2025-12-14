@@ -1,4 +1,4 @@
-package org.todaybook.userservice.userbook.domain;
+package org.todaybook.userservice.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserId {
 
-  @Column(name = "user_id", nullable = false)
+  @Column(name = "id", nullable = false)
   private UUID id;
 
   protected UserId(UUID id) {

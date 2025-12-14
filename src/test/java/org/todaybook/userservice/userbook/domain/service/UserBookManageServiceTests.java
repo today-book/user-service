@@ -19,7 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.todaybook.userservice.BookFixture;
 import org.todaybook.userservice.userbook.domain.BookId;
 import org.todaybook.userservice.userbook.domain.UserBook;
-import org.todaybook.userservice.userbook.domain.UserId;
+import org.todaybook.userservice.user.UserId;
 import org.todaybook.userservice.userbook.domain.dto.Book;
 import org.todaybook.userservice.userbook.domain.exception.UserBookAlreadyExistsException;
 import org.todaybook.userservice.userbook.domain.exception.UserBookNotFoundException;
