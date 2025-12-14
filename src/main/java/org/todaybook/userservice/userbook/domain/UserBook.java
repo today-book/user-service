@@ -1,5 +1,6 @@
 package org.todaybook.userservice.userbook.domain;
 
+import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -18,6 +19,7 @@ import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.todaybook.userservice.user.domain.UserId;
 import org.todaybook.userservice.userbook.domain.dto.Book;
 
 @Entity
@@ -32,7 +34,9 @@ public class UserBook {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Embedded private UserId userId;
+  @Embedded
+  @AttributeOverride(name = "id", column = @Column(name = "user_id"))
+  private UserId userId;
 
   @Embedded private BookId bookId;
 
