@@ -11,8 +11,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -31,7 +29,6 @@ public class User {
   @Column(nullable = false)
   private String nickname;
 
-  @JdbcTypeCode(SqlTypes.ARRAY)
   @Convert(converter = RoleArrayConverter.class)
   @Column(columnDefinition = "text[]", nullable = false)
   private List<Role> role;
