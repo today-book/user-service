@@ -23,7 +23,7 @@ import org.todaybook.userservice.userbook.domain.dto.Book;
 @Entity
 @Getter
 @ToString
-@Table(schema = "user", name = "p_user_books")
+@Table(schema = "member", name = "p_user_books")
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserBook {
