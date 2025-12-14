@@ -1,7 +1,6 @@
 package org.todaybook.userservice.user.domain;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -13,6 +12,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -32,9 +33,9 @@ public class User {
   @Column(nullable = false)
   private String nickname;
 
-  @Convert(converter = RoleArrayConverter.class)
+  @JdbcTypeCode(SqlTypes.ARRAY)
   @Column(columnDefinition = "text[]", nullable = false)
-  private List<Role> role;
+  private List<String> role;
 
   @Column(nullable = false, updatable = false)
   @CreatedDate
@@ -53,9 +54,17 @@ public class User {
     user.id = UserId.generateId();
     user.kakaoId = kakaoId;
     user.nickname = nickname;
-    user.role = List.of(Role.USER);
+    user.setRole(List.of(Role.USER));
 
     return user;
+  }
+
+  private void setRole(List<Role> role) {
+    this.role = role.stream().map(Role::name).toList();
+  }
+
+  public List<Role> getRole() {
+    return this.role.stream().map(Role::fromString).toList();
   }
 
   private static void validateKakaoId(KakaoId kakaoId) {

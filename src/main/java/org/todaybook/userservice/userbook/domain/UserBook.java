@@ -1,5 +1,6 @@
 package org.todaybook.userservice.userbook.domain;
 
+import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -33,7 +34,9 @@ public class UserBook {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Embedded private UserId userId;
+  @Embedded
+  @AttributeOverride(name = "id", column = @Column(name = "user_id"))
+  private UserId userId;
 
   @Embedded private BookId bookId;
 
