@@ -1,4 +1,4 @@
-package org.todaybook.userservice.domain;
+package org.todaybook.userservice.userbook.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -12,17 +12,21 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BookId {
+public class UserId {
 
-  @Column(name = "book_id", nullable = false)
+  @Column(name = "user_id", nullable = false)
   private UUID id;
 
-  protected BookId(UUID id) {
+  protected UserId(UUID id) {
     this.id = id;
   }
 
-  public static BookId of(UUID id) {
-    return new BookId(id);
+  public static UserId of(UUID id) {
+    return new UserId(id);
+  }
+
+  public static UserId generateId() {
+    return UserId.of(UUID.randomUUID());
   }
 
   public UUID toUUID() {

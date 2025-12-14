@@ -1,0 +1,18 @@
+package org.todaybook.userservice.userbook.domain.service;
+
+import java.util.List;
+import java.util.Set;
+import org.todaybook.userservice.userbook.domain.BookId;
+import org.todaybook.userservice.userbook.domain.UserBook;
+import org.todaybook.userservice.userbook.domain.UserId;
+
+public interface UserBookQueryService {
+
+  UserBook getUserBookById(Long id);
+
+  List<UserBook> getUserBooks(UserId userId);
+
+  boolean isSavedBook(UserId userId, BookId bookId);
+
+  Set<BookId> getSavedBooksByBookIds(UserId userId, List<BookId> bookIds);
+}

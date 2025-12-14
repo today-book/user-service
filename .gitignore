@@ -38,4 +38,3 @@ out/
 
 .env
 gradle.properties
-application-*.yaml
