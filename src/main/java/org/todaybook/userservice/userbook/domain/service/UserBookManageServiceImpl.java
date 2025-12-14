@@ -36,6 +36,6 @@ public class UserBookManageServiceImpl implements UserBookManageService {
   public void deleteById(Long id) {
     repository.findById(id).orElseThrow(() -> new UserBookNotFoundException(id));
 
-    repository.delete(id);
+    repository.deleteById(id);
   }
 }

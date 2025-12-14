@@ -77,7 +77,7 @@ class UserBookManageServiceTests {
 
     userBookManageService.deleteById(id);
 
-    verify(repository).delete(id);
+    verify(repository).deleteById(id);
   }
 
   @Test
@@ -89,6 +89,6 @@ class UserBookManageServiceTests {
 
     assertThrows(UserBookNotFoundException.class, () -> userBookManageService.deleteById(id));
 
-    verify(repository, never()).delete(any());
+    verify(repository, never()).deleteById(any());
   }
 }
