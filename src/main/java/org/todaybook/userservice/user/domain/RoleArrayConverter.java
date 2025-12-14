@@ -1,4 +1,4 @@
-package org.todaybook.userservice.user;
+package org.todaybook.userservice.user.domain;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

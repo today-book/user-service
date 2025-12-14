@@ -1,7 +1,7 @@
-package org.todaybook.userservice.user;
+package org.todaybook.userservice.user.domain;
 
 import lombok.Getter;
-import org.todaybook.userservice.user.exception.UserInvalidRoleException;
+import org.todaybook.userservice.user.domain.exception.UserInvalidRoleException;
 
 @Getter
 public enum Role {

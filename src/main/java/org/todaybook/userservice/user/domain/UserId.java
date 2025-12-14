@@ -1,4 +1,4 @@
-package org.todaybook.userservice.user;
+package org.todaybook.userservice.user.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

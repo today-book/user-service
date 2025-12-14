@@ -1,4 +1,4 @@
-package org.todaybook.userservice.user.exception;
+package org.todaybook.userservice.user.domain.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
