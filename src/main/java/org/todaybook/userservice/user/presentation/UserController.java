@@ -20,7 +20,7 @@ public class UserController {
 
   private final UserService userService;
 
-  @PostMapping
+  @PostMapping("/kakao")
   public UserResponse register(@RequestBody UserRegisterRequest request) {
     return userService.register(request.kakaoId(), request.nickname());
   }
