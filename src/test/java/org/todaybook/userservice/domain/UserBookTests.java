@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
 import org.todaybook.userservice.BookFixture;
 import org.todaybook.userservice.user.domain.UserId;
+import org.todaybook.userservice.userbook.domain.Book;
 import org.todaybook.userservice.userbook.domain.BookId;
 import org.todaybook.userservice.userbook.domain.UserBook;
-import org.todaybook.userservice.userbook.domain.Book;
 
 @ActiveProfiles("test")
 class UserBookTests {
