@@ -5,22 +5,17 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import org.todaybook.userservice.share.application.ShareCacheRepository;
+import org.todaybook.userservice.share.application.service.ShareCacheService;
 
 @Service
 @RequiredArgsConstructor
-public class RedisRepository implements ShareCacheRepository {
+public class RedisService implements ShareCacheService {
 
   private final StringRedisTemplate redisTemplate;
 
   @Override
   public void save(String key, String value) {
-    save(key, value, Duration.ofDays(7));
-  }
-
-  @Override
-  public void save(String key, String value, Duration duration) {
-    redisTemplate.opsForValue().set(key, value, duration);
+    redisTemplate.opsForValue().set(key, value, Duration.ofDays(7));
   }
 
   @Override
@@ -29,7 +24,7 @@ public class RedisRepository implements ShareCacheRepository {
   }
 
   @Override
-  public Optional<String> get(String key) {
+  public Optional<String> find(String key) {
     return Optional.ofNullable(redisTemplate.opsForValue().get(key));
   }
 }
