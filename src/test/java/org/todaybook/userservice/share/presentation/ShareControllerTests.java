@@ -9,7 +9,6 @@ import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -31,7 +30,6 @@ class ShareControllerTests {
   @Autowired MockMvc mockMvc;
 
   @Autowired ObjectMapper objectMapper;
-  @Autowired private StatusAggregator statusAggregator;
 
   @Test
   @DisplayName("도서 공유 토큰 발급 성공")
