@@ -8,7 +8,7 @@ public class ShareCacheKeyBuilder {
 
   public static String tokenKey(UUID token) {
     if (token == null) {
-      throw new IllegalArgumentException("");
+      throw new IllegalArgumentException("토큰(token)은 빈 값일 수 없습니다.");
     }
     return KEY_PREFIX + token;
   }
