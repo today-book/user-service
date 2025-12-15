@@ -34,7 +34,7 @@ repositories {
 }
 
 ext {
-    commonVersion = '1.1.1'
+    commonVersion = '1.2.0'
 }
 
 dependencies {
