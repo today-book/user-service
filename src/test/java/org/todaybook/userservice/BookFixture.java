@@ -3,7 +3,7 @@ package org.todaybook.userservice;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
-import org.todaybook.userservice.userbook.domain.dto.Book;
+import org.todaybook.userservice.userbook.domain.Book;
 
 public class BookFixture {
 

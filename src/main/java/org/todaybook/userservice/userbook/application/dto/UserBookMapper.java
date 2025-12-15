@@ -1,6 +1,6 @@
 package org.todaybook.userservice.userbook.application.dto;
 
-import org.todaybook.userservice.userbook.domain.dto.Book;
+import org.todaybook.userservice.userbook.domain.Book;
 import org.todaybook.userservice.userbook.presentation.dto.UserBookRequest;
 
 public class UserBookMapper {

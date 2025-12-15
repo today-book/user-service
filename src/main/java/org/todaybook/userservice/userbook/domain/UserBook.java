@@ -20,7 +20,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.todaybook.userservice.user.domain.UserId;
-import org.todaybook.userservice.userbook.domain.dto.Book;
 
 @Entity
 @Getter
