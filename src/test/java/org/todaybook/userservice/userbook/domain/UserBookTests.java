@@ -1,4 +1,4 @@
-package org.todaybook.userservice.domain;
+package org.todaybook.userservice.userbook.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -7,11 +7,8 @@ import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
-import org.todaybook.userservice.BookFixture;
+import org.todaybook.userservice.userbook.BookFixture;
 import org.todaybook.userservice.user.domain.UserId;
-import org.todaybook.userservice.userbook.domain.Book;
-import org.todaybook.userservice.userbook.domain.BookId;
-import org.todaybook.userservice.userbook.domain.UserBook;
 
 @ActiveProfiles("test")
 class UserBookTests {
