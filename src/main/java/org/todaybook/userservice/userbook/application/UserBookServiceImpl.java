@@ -1,6 +1,7 @@
 package org.todaybook.userservice.userbook.application;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -32,7 +33,8 @@ public class UserBookServiceImpl implements UserBookService {
   }
 
   @Override
-  public void delete(Long id) {
+  public void delete(UUID userId, Long id) {
+    userBookQueryService.getUserBookByUserId(UserId.of(userId), id);
     userBookManageService.deleteById(id);
   }
 
@@ -43,20 +45,23 @@ public class UserBookServiceImpl implements UserBookService {
   }
 
   @Override
-  public List<UserBookResponse> getUserBooks(UUID userId) {
-    List<UserBook> userBooks = userBookQueryService.getUserBooks(UserId.of(userId));
+  public UserBookResponse getUserBookByUserId(UUID userId, Long id) {
+    UserBook userBook = userBookQueryService.getUserBookByUserId(UserId.of(userId), id);
+    return UserBookResponse.from(userBook);
+  }
+
+  @Override
+  public List<UserBookResponse> getUserBooksByUserId(UUID userId) {
+    List<UserBook> userBooks = userBookQueryService.getUserBooksByUserId(UserId.of(userId));
     return userBooks.stream().map(UserBookResponse::from).toList();
   }
 
   @Override
-  public boolean isSavedBook(UUID userId, UUID bookId) {
-    return userBookQueryService.isSavedBook(UserId.of(userId), BookId.of(bookId));
-  }
-
-  public Set<UUID> getSavedBooksByBookId(UUID userId, List<UUID> bookIds) {
-    Set<BookId> result =
+  public Map<UUID, Boolean> getSavedBooksByBookId(UUID userId, List<UUID> bookIds) {
+    Set<BookId> savedIds =
         userBookQueryService.getSavedBooksByBookIds(
             UserId.of(userId), bookIds.stream().map(BookId::of).toList());
-    return result.stream().map(BookId::toUUID).collect(Collectors.toSet());
+    return bookIds.stream()
+        .collect(Collectors.toMap(id -> id, id -> savedIds.contains(BookId.of(id))));
   }
 }

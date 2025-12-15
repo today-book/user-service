@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.todaybook.userservice.user.domain.UserId;
 import org.todaybook.userservice.userbook.domain.BookId;
 import org.todaybook.userservice.userbook.domain.UserBook;
+import org.todaybook.userservice.userbook.domain.exception.UserBookAccessDeniedException;
 import org.todaybook.userservice.userbook.domain.exception.UserBookNotFoundException;
 import org.todaybook.userservice.userbook.domain.repository.UserBookRepository;
 
@@ -25,13 +26,20 @@ public class UserBookQueryServiceImpl implements UserBookQueryService {
   }
 
   @Override
-  public List<UserBook> getUserBooks(UserId userId) {
-    return repository.findByUserId(userId);
+  public UserBook getUserBookByUserId(UserId userId, Long id) {
+    UserBook userBook =
+        repository.findById(id).orElseThrow(() -> new UserBookNotFoundException(id));
+
+    if (!userBook.getUserId().equals(userId)) {
+      throw new UserBookAccessDeniedException(id);
+    }
+
+    return userBook;
   }
 
   @Override
-  public boolean isSavedBook(UserId userId, BookId bookId) {
-    return repository.findByUserIdAndBookId(userId, bookId).isPresent();
+  public List<UserBook> getUserBooksByUserId(UserId userId) {
+    return repository.findByUserId(userId);
   }
 
   @Override
