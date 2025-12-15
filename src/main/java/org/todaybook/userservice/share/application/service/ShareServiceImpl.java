@@ -9,6 +9,7 @@ import org.todaybook.userservice.share.domain.ShareToken;
 import org.todaybook.userservice.share.domain.SharedBook;
 import org.todaybook.userservice.share.domain.exception.SharedBookNotFoundException;
 import org.todaybook.userservice.share.presentation.dto.SharedBookRequest;
+import org.todaybook.userservice.share.presentation.dto.SharedBookResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -32,13 +33,15 @@ public class ShareServiceImpl implements ShareService {
   }
 
   @Override
-  public SharedBook getSharedBook(UUID token) {
+  public SharedBookResponse getSharedBook(UUID token) {
     String key = ShareCacheKeyBuilder.tokenKey(token);
 
     String json =
         shareCacheService.find(key).orElseThrow(() -> new SharedBookNotFoundException(token));
 
-    return fromJson(json);
+    SharedBook sharedBook = fromJson(json);
+
+    return SharedBookResponse.from(sharedBook);
   }
 
   @Override
