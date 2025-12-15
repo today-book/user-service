@@ -58,10 +58,9 @@ public class UserBookServiceImpl implements UserBookService {
 
   @Override
   public Map<UUID, Boolean> getSavedBooksByBookId(UUID userId, List<UUID> bookIds) {
+    List<BookId> bookIdList = bookIds.stream().map(BookId::of).toList();
     Set<BookId> savedIds =
-        userBookQueryService.getSavedBooksByBookIds(
-            UserId.of(userId), bookIds.stream().map(BookId::of).toList());
-    return bookIds.stream()
-        .collect(Collectors.toMap(id -> id, id -> savedIds.contains(BookId.of(id))));
+        userBookQueryService.getSavedBooksByBookIds(UserId.of(userId), bookIdList);
+    return bookIdList.stream().collect(Collectors.toMap(BookId::toUUID, savedIds::contains));
   }
 }
