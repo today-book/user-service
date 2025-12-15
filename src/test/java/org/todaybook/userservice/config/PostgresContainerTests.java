@@ -14,7 +14,7 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@Import({PostgresContainerConfig.class})
+@Import({PostgresContainerConfig.class, RedisContainerConfig.class})
 public class PostgresContainerTests {
 
   @Autowired private PostgreSQLContainer postgres;
