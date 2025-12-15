@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'org.todaybook'
-version = '1.0.0'
+version = '1.1.0'
 description = 'Service for providing features to TodayBook users'
 
 java {
