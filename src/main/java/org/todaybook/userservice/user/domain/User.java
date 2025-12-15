@@ -47,7 +47,6 @@ public class User {
 
   public static User create(KakaoId kakaoId, String nickname) {
     validateKakaoId(kakaoId);
-    validateNickname(nickname);
 
     User user = new User();
 
@@ -70,12 +69,6 @@ public class User {
   private static void validateKakaoId(KakaoId kakaoId) {
     if (kakaoId == null || kakaoId.getId() == null) {
       throw new IllegalArgumentException("카카오 아이디(kakaoId)는 빈 값일 수 없습니다.");
-    }
-  }
-
-  private static void validateNickname(String nickname) {
-    if (nickname == null || nickname.isBlank()) {
-      throw new IllegalArgumentException("닉네임(nickname)은 빈 값일 수 없습니다.");
     }
   }
 }
