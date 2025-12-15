@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.todaybook.userservice.user.domain.UserId;
 import org.todaybook.userservice.userbook.domain.BookId;
 import org.todaybook.userservice.userbook.domain.UserBook;
-import org.todaybook.userservice.userbook.domain.dto.Book;
+import org.todaybook.userservice.userbook.domain.Book;
 import org.todaybook.userservice.userbook.domain.exception.UserBookAlreadyExistsException;
 import org.todaybook.userservice.userbook.domain.exception.UserBookNotFoundException;
 import org.todaybook.userservice.userbook.domain.repository.UserBookRepository;

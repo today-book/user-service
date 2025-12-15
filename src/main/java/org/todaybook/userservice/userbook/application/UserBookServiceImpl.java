@@ -12,7 +12,7 @@ import org.todaybook.userservice.user.domain.UserId;
 import org.todaybook.userservice.userbook.application.dto.UserBookMapper;
 import org.todaybook.userservice.userbook.domain.BookId;
 import org.todaybook.userservice.userbook.domain.UserBook;
-import org.todaybook.userservice.userbook.domain.dto.Book;
+import org.todaybook.userservice.userbook.domain.Book;
 import org.todaybook.userservice.userbook.domain.service.UserBookManageService;
 import org.todaybook.userservice.userbook.domain.service.UserBookQueryService;
 import org.todaybook.userservice.userbook.presentation.dto.UserBookRequest;

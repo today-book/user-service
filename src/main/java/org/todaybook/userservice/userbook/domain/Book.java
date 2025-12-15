@@ -1,4 +1,4 @@
-package org.todaybook.userservice.userbook.domain.dto;
+package org.todaybook.userservice.userbook.domain;
 
 import java.time.LocalDate;
 import java.util.List;

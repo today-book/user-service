@@ -3,7 +3,7 @@ package org.todaybook.userservice.userbook.presentation.dto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.todaybook.userservice.userbook.domain.UserBook;
-import org.todaybook.userservice.userbook.domain.dto.Book;
+import org.todaybook.userservice.userbook.domain.Book;
 
 public record UserBookResponse(
     UUID userId, UUID bookId, Book book, LocalDateTime createdAt, LocalDateTime updatedAt) {

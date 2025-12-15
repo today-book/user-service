@@ -11,7 +11,7 @@ import org.todaybook.userservice.BookFixture;
 import org.todaybook.userservice.user.domain.UserId;
 import org.todaybook.userservice.userbook.domain.BookId;
 import org.todaybook.userservice.userbook.domain.UserBook;
-import org.todaybook.userservice.userbook.domain.dto.Book;
+import org.todaybook.userservice.userbook.domain.Book;
 
 @ActiveProfiles("test")
 class UserBookTests {
