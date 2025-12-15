@@ -1,0 +1,66 @@
+package org.todaybook.userservice.userbook.application;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.todaybook.userservice.user.domain.UserId;
+import org.todaybook.userservice.userbook.application.dto.UserBookMapper;
+import org.todaybook.userservice.userbook.domain.BookId;
+import org.todaybook.userservice.userbook.domain.UserBook;
+import org.todaybook.userservice.userbook.domain.dto.Book;
+import org.todaybook.userservice.userbook.domain.service.UserBookManageService;
+import org.todaybook.userservice.userbook.domain.service.UserBookQueryService;
+import org.todaybook.userservice.userbook.presentation.dto.UserBookRequest;
+import org.todaybook.userservice.userbook.presentation.dto.UserBookResponse;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class UserBookServiceImpl implements UserBookService {
+
+  private final UserBookQueryService userBookQueryService;
+  private final UserBookManageService userBookManageService;
+
+  @Override
+  public void register(UUID userId, UserBookRequest request) {
+    Book book = UserBookMapper.toBook(request);
+    userBookManageService.save(UserId.of(userId), book);
+  }
+
+  @Override
+  public void delete(UUID userId, Long id) {
+    userBookQueryService.getUserBookByUserId(UserId.of(userId), id);
+    userBookManageService.deleteById(id);
+  }
+
+  @Override
+  public UserBookResponse getUserBookById(Long id) {
+    UserBook userBook = userBookQueryService.getUserBookById(id);
+    return UserBookResponse.from(userBook);
+  }
+
+  @Override
+  public UserBookResponse getUserBookByUserId(UUID userId, Long id) {
+    UserBook userBook = userBookQueryService.getUserBookByUserId(UserId.of(userId), id);
+    return UserBookResponse.from(userBook);
+  }
+
+  @Override
+  public List<UserBookResponse> getUserBooksByUserId(UUID userId) {
+    List<UserBook> userBooks = userBookQueryService.getUserBooksByUserId(UserId.of(userId));
+    return userBooks.stream().map(UserBookResponse::from).toList();
+  }
+
+  @Override
+  public Map<UUID, Boolean> getSavedBooksByBookId(UUID userId, List<UUID> bookIds) {
+    List<BookId> bookIdList = bookIds.stream().map(BookId::of).toList();
+    Set<BookId> savedIds =
+        userBookQueryService.getSavedBooksByBookIds(UserId.of(userId), bookIdList);
+    return bookIdList.stream().collect(Collectors.toMap(BookId::toUUID, savedIds::contains));
+  }
+}
