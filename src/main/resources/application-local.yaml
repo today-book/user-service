@@ -1,4 +1,8 @@
 spring:
+  cloud:
+    discovery:
+      enabled: false
+
   data:
     redis:
       host: localhost

@@ -65,7 +65,7 @@ jobs:
             echo "배포 시작"
             sudo docker stop ${{ env.APP_NAME }} || true
             sudo docker rm ${{ env.APP_NAME }} || true
-            sudo docker images | grep "${{ env.APP_NAME }}" | awk '{print $3}' | tail -n +4 | xargs -r sudo docker rmi || true
+            sudo docker images | grep "${{ env.IMAGE_NAME }}" | awk '{print $3}' | xargs -r sudo docker rmi -f || true
             
             echo "GHCR 로그인"
             echo "${{ secrets.GITHUB_TOKEN }}" | sudo docker login ghcr.io -u "${{ github.actor }}" --password-stdin
