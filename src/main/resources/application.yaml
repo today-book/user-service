@@ -5,6 +5,10 @@ spring:
   application:
     name: user-service
 
+  cloud:
+    discovery:
+      enabled: true
+
   data:
     redis:
       host: redis
@@ -29,3 +33,13 @@ todaybook:
   security:
     mvc:
       enabled: true
+
+eureka:
+  instance:
+    hostname: ${spring.application.name}
+    prefer-ip-address: false
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka-server:9100/eureka/
