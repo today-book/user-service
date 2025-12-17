@@ -14,5 +14,7 @@ public interface UserBookQueryService {
 
   List<UserBook> getUserBooksByUserId(UserId userId);
 
+  boolean isSavedBook(UserId userId, BookId bookId);
+
   Set<BookId> getSavedBooksByBookIds(UserId userId, List<BookId> bookIds);
 }

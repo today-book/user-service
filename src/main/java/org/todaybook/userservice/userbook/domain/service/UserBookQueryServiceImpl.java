@@ -43,6 +43,11 @@ public class UserBookQueryServiceImpl implements UserBookQueryService {
   }
 
   @Override
+  public boolean isSavedBook(UserId userId, BookId bookId) {
+    return repository.findByUserIdAndBookId(userId, bookId).isPresent();
+  }
+
+  @Override
   public Set<BookId> getSavedBooksByBookIds(UserId userId, List<BookId> bookIds) {
     return repository.findByUserIdAndBookIdIn(userId, bookIds).stream()
         .map(UserBook::getBookId)
