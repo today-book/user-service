@@ -17,5 +17,7 @@ public interface UserBookService {
 
   List<UserBookResponse> getUserBooksByUserId(UUID userId);
 
+  boolean isSavedBook(UUID userId, UUID bookId);
+
   Map<UUID, Boolean> getSavedBooksByBookId(UUID userId, List<UUID> bookIds);
 }

@@ -57,6 +57,11 @@ public class UserBookServiceImpl implements UserBookService {
   }
 
   @Override
+  public boolean isSavedBook(UUID userId, UUID bookId) {
+    return userBookQueryService.isSavedBook(UserId.of(userId), BookId.of(bookId));
+  }
+
+  @Override
   public Map<UUID, Boolean> getSavedBooksByBookId(UUID userId, List<UUID> bookIds) {
     List<BookId> bookIdList = bookIds.stream().map(BookId::of).toList();
     Set<BookId> savedIds =
