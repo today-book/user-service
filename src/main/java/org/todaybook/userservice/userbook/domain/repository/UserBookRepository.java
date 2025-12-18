@@ -18,5 +18,7 @@ public interface UserBookRepository extends Repository<UserBook, Long> {
 
   UserBook save(UserBook userBook);
 
+  List<UserBook> saveAll(List<UserBook> userBooks);
+
   void deleteById(Long id);
 }
