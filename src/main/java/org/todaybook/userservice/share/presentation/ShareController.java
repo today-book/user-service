@@ -20,10 +20,7 @@ public class ShareController {
   private final ShareService shareService;
 
   @PutMapping("/book/{token}")
-  public void shareBook(
-      @PathVariable UUID token,
-      @RequestBody SharedBookRequest request
-  ) {
+  public void shareBook(@PathVariable UUID token, @RequestBody SharedBookRequest request) {
     shareService.shareBook(token, request);
   }
 
