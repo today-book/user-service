@@ -5,7 +5,6 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.todaybook.userservice.share.application.service.dto.ShareMapper;
-import org.todaybook.userservice.share.domain.ShareToken;
 import org.todaybook.userservice.share.domain.SharedBook;
 import org.todaybook.userservice.share.domain.exception.SharedBookNotFoundException;
 import org.todaybook.userservice.share.presentation.dto.SharedBookRequest;
@@ -19,17 +18,14 @@ public class ShareServiceImpl implements ShareService {
   private final ShareCacheService shareCacheService;
 
   @Override
-  public UUID shareBook(SharedBookRequest request) {
-    ShareToken shareToken = ShareToken.create();
-    String key = ShareCacheKeyBuilder.tokenKey(shareToken.token());
+  public void shareBook(UUID token, SharedBookRequest request) {
+    String key = ShareCacheKeyBuilder.tokenKey(token);
 
     SharedBook book = ShareMapper.toSharedBook(request);
 
     String json = toJson(book);
 
     shareCacheService.save(key, json);
-
-    return shareToken.token();
   }
 
   @Override
