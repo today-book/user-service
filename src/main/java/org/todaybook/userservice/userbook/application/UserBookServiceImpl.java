@@ -33,6 +33,12 @@ public class UserBookServiceImpl implements UserBookService {
   }
 
   @Override
+  public void registerAll(UUID userId, List<UserBookRequest> request) {
+    List<Book> books = request.stream().map(UserBookMapper::toBook).toList();
+    userBookManageService.saveAll(UserId.of(userId), books);
+  }
+
+  @Override
   public void delete(UUID userId, Long id) {
     userBookQueryService.getUserBookByUserId(UserId.of(userId), id);
     userBookManageService.deleteById(id);

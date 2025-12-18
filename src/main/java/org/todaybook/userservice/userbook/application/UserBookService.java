@@ -9,6 +9,8 @@ import org.todaybook.userservice.userbook.presentation.dto.UserBookResponse;
 public interface UserBookService {
   void register(UUID userId, UserBookRequest request);
 
+  void registerAll(UUID userId, List<UserBookRequest> request);
+
   void delete(UUID userId, Long id);
 
   UserBookResponse getUserBookById(Long id);

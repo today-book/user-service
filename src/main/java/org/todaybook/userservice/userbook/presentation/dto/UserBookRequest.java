@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public record UserBookRequest(
-    @NotNull UUID id,
+    @NotNull UUID bookId,
     @NotBlank String isbn,
     @NotBlank String title,
     @NotBlank String author,

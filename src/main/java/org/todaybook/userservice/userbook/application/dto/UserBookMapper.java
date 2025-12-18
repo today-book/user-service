@@ -7,7 +7,7 @@ public class UserBookMapper {
 
   public static Book toBook(UserBookRequest request) {
     return new Book(
-        request.id(),
+        request.bookId(),
         request.isbn(),
         request.author(),
         request.title(),

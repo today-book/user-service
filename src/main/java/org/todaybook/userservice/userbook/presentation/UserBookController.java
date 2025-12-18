@@ -33,6 +33,13 @@ public class UserBookController {
     userBookService.register(authentication.userId(), request);
   }
 
+  @PostMapping("/all")
+  public void registerAll(
+      @AuthenticationPrincipal AuthenticatedUser authentication,
+      @RequestBody @Valid List<UserBookRequest> request) {
+    userBookService.registerAll(authentication.userId(), request);
+  }
+
   @DeleteMapping("/{id}")
   public void delete(
       @AuthenticationPrincipal AuthenticatedUser authentication, @PathVariable Long id) {
