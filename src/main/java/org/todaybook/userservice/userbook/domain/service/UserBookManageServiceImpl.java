@@ -41,7 +41,7 @@ public class UserBookManageServiceImpl implements UserBookManageService {
     List<BookId> bookIds = books.stream().map(book -> BookId.of(book.id())).toList();
 
     Map<BookId, UserBook> existing =
-        repository.findByUserIdAndBookIdIn(userId, bookIds).stream()
+        repository.findByUserIdAndBookIds(userId, bookIds).stream()
             .collect(Collectors.toMap(UserBook::getBookId, Function.identity()));
 
     List<UserBook> result =

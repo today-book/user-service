@@ -49,7 +49,7 @@ public class UserBookQueryServiceImpl implements UserBookQueryService {
 
   @Override
   public Set<BookId> getSavedBooksByBookIds(UserId userId, List<BookId> bookIds) {
-    return repository.findByUserIdAndBookIdIn(userId, bookIds).stream()
+    return repository.findByUserIdAndBookIds(userId, bookIds).stream()
         .map(UserBook::getBookId)
         .collect(Collectors.toSet());
   }
