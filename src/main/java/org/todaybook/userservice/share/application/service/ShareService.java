@@ -5,7 +5,7 @@ import org.todaybook.userservice.share.presentation.dto.SharedBookRequest;
 import org.todaybook.userservice.share.presentation.dto.SharedBookResponse;
 
 public interface ShareService {
-  UUID shareBook(SharedBookRequest request);
+  void shareBook(UUID token, SharedBookRequest request);
 
   SharedBookResponse getSharedBook(UUID token);
 

@@ -1,7 +1,7 @@
 package org.todaybook.userservice.share.presentation;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,41 +34,31 @@ class ShareControllerTests {
   @Test
   @DisplayName("도서 공유 토큰 발급 성공")
   void test1() throws Exception {
+    UUID token = UUID.randomUUID();
     SharedBookRequest request = SharedBookFixture.sharedBookRequest();
 
-    String response =
-        mockMvc
-            .perform(
-                post("/api/v1/shares/book")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(request)))
-            .andExpect(status().isOk())
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
-
-    System.out.println("response: " + response);
+    mockMvc
+        .perform(
+            put("/api/v1/shares/book/{token}", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isOk());
   }
 
   @Test
   @DisplayName("토큰으로 SharedBook 조회 성공")
   void test2() throws Exception {
+    UUID token = UUID.randomUUID();
     SharedBookRequest request = SharedBookFixture.sharedBookRequest();
 
-    String tokenRes =
-        mockMvc
-            .perform(
-                post("/api/v1/shares/book")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(request)))
-            .andExpect(status().isOk())
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
+    mockMvc
+        .perform(
+            put("/api/v1/shares/book/{token}", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isOk());
 
-    UUID token = objectMapper.readValue(tokenRes, UUID.class);
-
-    String sharedRes =
+    String response =
         mockMvc
             .perform(get("/api/v1/shares/book/{token}", token))
             .andExpect(status().isOk())
@@ -76,9 +66,8 @@ class ShareControllerTests {
             .getResponse()
             .getContentAsString();
 
-    SharedBookResponse sharedBookResponse =
-        objectMapper.readValue(sharedRes, SharedBookResponse.class);
+    SharedBookResponse sharedBook = objectMapper.readValue(response, SharedBookResponse.class);
 
-    System.out.println("response: " + sharedBookResponse);
+    System.out.println("response: " + sharedBook);
   }
 }
