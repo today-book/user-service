@@ -40,21 +40,24 @@ public class UserBookManageServiceImpl implements UserBookManageService {
   public List<UserBook> saveAll(UserId userId, List<Book> books) {
     List<BookId> bookIds = books.stream().map(book -> BookId.of(book.id())).toList();
 
-    Map<BookId, UserBook> existing = repository.findByUserIdAndBookIdIn(userId, bookIds).stream()
-        .collect(Collectors.toMap(UserBook::getBookId, Function.identity()));
+    Map<BookId, UserBook> existing =
+        repository.findByUserIdAndBookIdIn(userId, bookIds).stream()
+            .collect(Collectors.toMap(UserBook::getBookId, Function.identity()));
 
-    List<UserBook> result = books.stream()
-        .map(book -> {
-          BookId bookId = BookId.of(book.id());
-          UserBook userBook = existing.get(bookId);
+    List<UserBook> result =
+        books.stream()
+            .map(
+                book -> {
+                  BookId bookId = BookId.of(book.id());
+                  UserBook userBook = existing.get(bookId);
 
-          if (userBook != null) {
-            return userBook.updateBook(book);
-          }
+                  if (userBook != null) {
+                    return userBook.updateBook(book);
+                  }
 
-          return UserBook.create(userId, book);
-        })
-        .toList();
+                  return UserBook.create(userId, book);
+                })
+            .toList();
 
     return repository.saveAll(result);
   }

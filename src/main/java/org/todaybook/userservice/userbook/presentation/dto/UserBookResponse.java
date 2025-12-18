@@ -6,7 +6,12 @@ import org.todaybook.userservice.userbook.domain.Book;
 import org.todaybook.userservice.userbook.domain.UserBook;
 
 public record UserBookResponse(
-    Long id, UUID userId, UUID bookId, Book book, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    Long id,
+    UUID userId,
+    UUID bookId,
+    Book book,
+    LocalDateTime createdAt,
+    LocalDateTime updatedAt) {
   public static UserBookResponse from(UserBook userBook) {
     return new UserBookResponse(
         userBook.getId(),

@@ -36,8 +36,7 @@ public class UserBookController {
   @PostMapping
   public void registerAll(
       @AuthenticationPrincipal AuthenticatedUser authentication,
-      @RequestBody @Valid List<UserBookRequest> request
-  ) {
+      @RequestBody @Valid List<UserBookRequest> request) {
     userBookService.registerAll(authentication.userId(), request);
   }
 
