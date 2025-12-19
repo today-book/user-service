@@ -16,8 +16,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.todaybook.userservice.config.PostgresContainerConfig;
 import org.todaybook.userservice.user.domain.UserId;
 import org.todaybook.userservice.userbook.BookFixture;
-import org.todaybook.userservice.userbook.domain.Book;
 import org.todaybook.userservice.userbook.domain.BookId;
+import org.todaybook.userservice.userbook.domain.BookSnapshot;
 import org.todaybook.userservice.userbook.domain.UserBook;
 import org.todaybook.userservice.userbook.domain.exception.UserBookAlreadyExistsException;
 import org.todaybook.userservice.userbook.domain.exception.UserBookNotFoundException;
@@ -37,9 +37,9 @@ class UserBookManageServiceIT {
   void test1() {
     UserId userId = UserId.generateId();
     BookId bookId = BookId.of(UUID.randomUUID());
-    Book book = BookFixture.book(bookId.toUUID());
+    BookSnapshot snapshot = BookFixture.book(bookId.toUUID());
 
-    UserBook saved = userBookManageService.save(userId, book);
+    UserBook saved = userBookManageService.save(userId, snapshot);
 
     assertNotNull(saved);
     assertEquals(userId, saved.getUserId());
@@ -53,12 +53,12 @@ class UserBookManageServiceIT {
   void test2() {
     UserId userId = UserId.generateId();
     BookId bookId = BookId.of(UUID.randomUUID());
-    Book book = BookFixture.book(bookId.toUUID());
+    BookSnapshot snapshot = BookFixture.book(bookId.toUUID());
 
-    userBookManageService.save(userId, book);
+    userBookManageService.save(userId, snapshot);
 
     assertThrows(
-        UserBookAlreadyExistsException.class, () -> userBookManageService.save(userId, book));
+        UserBookAlreadyExistsException.class, () -> userBookManageService.save(userId, snapshot));
   }
 
   @Test
@@ -66,9 +66,9 @@ class UserBookManageServiceIT {
   void test3() {
     UserId userId = UserId.generateId();
     BookId bookId = BookId.of(UUID.randomUUID());
-    Book book = BookFixture.book(bookId.toUUID());
+    BookSnapshot snapshot = BookFixture.book(bookId.toUUID());
 
-    UserBook saved = userBookManageService.save(userId, book);
+    UserBook saved = userBookManageService.save(userId, snapshot);
     Long id = saved.getId();
 
     userBookManageService.deleteById(id);

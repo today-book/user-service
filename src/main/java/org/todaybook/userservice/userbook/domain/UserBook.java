@@ -41,7 +41,7 @@ public class UserBook {
 
   @JdbcTypeCode(SqlTypes.JSON)
   @Column(columnDefinition = "jsonb", nullable = false)
-  private Book book;
+  private BookSnapshot snapshot;
 
   @Column(nullable = false, updatable = false)
   @CreatedDate
@@ -51,24 +51,24 @@ public class UserBook {
   @LastModifiedDate
   private LocalDateTime updatedAt;
 
-  public static UserBook create(UserId userId, Book book) {
+  public static UserBook create(UserId userId, BookSnapshot snapshot) {
     validateUserId(userId);
-    validateBook(book);
+    validateBook(snapshot);
 
     UserBook userBook = new UserBook();
 
     userBook.userId = userId;
-    userBook.bookId = BookId.of(book.id());
-    userBook.book = book;
+    userBook.bookId = BookId.of(snapshot.bookId());
+    userBook.snapshot = snapshot;
 
     return userBook;
   }
 
-  public UserBook updateBook(Book book) {
-    validateBook(book);
-    verifyBookId(BookId.of(book.id()));
+  public UserBook updateSnapshot(BookSnapshot snapshot) {
+    validateBook(snapshot);
+    verifyBookId(BookId.of(snapshot.bookId()));
 
-    this.book = book;
+    this.snapshot = snapshot;
 
     return this;
   }
@@ -79,24 +79,24 @@ public class UserBook {
     }
   }
 
-  public static void validateBook(Book book) {
-    if (book.id() == null) {
+  public static void validateBook(BookSnapshot snapshot) {
+    if (snapshot.bookId() == null) {
       throw new IllegalArgumentException("도서 아이디(bookId)는 비어있을 수 없습니다.");
     }
 
-    if (book.isbn() == null || book.isbn().isBlank()) {
+    if (snapshot.isbn() == null || snapshot.isbn().isBlank()) {
       throw new IllegalArgumentException("도서 고유번호(isbn)는 비어있을 수 없습니다.");
     }
 
-    if (book.title() == null || book.title().isBlank()) {
+    if (snapshot.title() == null || snapshot.title().isBlank()) {
       throw new IllegalArgumentException("도서 제목(title)은 비어있을 수 없습니다.");
     }
 
-    if (book.author() == null || book.author().isBlank()) {
+    if (snapshot.author() == null || snapshot.author().isBlank()) {
       throw new IllegalArgumentException("도서 저자(author)는 비어있을 수 없습니다.");
     }
 
-    if (book.description() == null || book.description().isBlank()) {
+    if (snapshot.description() == null || snapshot.description().isBlank()) {
       throw new IllegalArgumentException("도서 소개(description)는 비어있을 수 없습니다.");
     }
   }
