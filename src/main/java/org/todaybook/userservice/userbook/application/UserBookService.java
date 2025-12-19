@@ -11,7 +11,9 @@ public interface UserBookService {
 
   void registerAll(UUID userId, List<UserBookRequest> request);
 
-  void delete(UUID userId, Long id);
+  void deleteById(UUID userId, Long id);
+
+  void deleteByBookId(UUID userId, UUID bookId);
 
   UserBookResponse getUserBookById(Long id);
 

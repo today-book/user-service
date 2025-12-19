@@ -13,6 +13,7 @@ import org.todaybook.userservice.userbook.application.dto.UserBookMapper;
 import org.todaybook.userservice.userbook.domain.Book;
 import org.todaybook.userservice.userbook.domain.BookId;
 import org.todaybook.userservice.userbook.domain.UserBook;
+import org.todaybook.userservice.userbook.domain.exception.UserBookAccessDeniedException;
 import org.todaybook.userservice.userbook.domain.service.UserBookManageService;
 import org.todaybook.userservice.userbook.domain.service.UserBookQueryService;
 import org.todaybook.userservice.userbook.presentation.dto.UserBookRequest;
@@ -47,6 +48,17 @@ public class UserBookServiceImpl implements UserBookService {
     }
 
     userBookManageService.deleteById(id);
+  }
+
+  @Override
+  public void deleteByBookId(UUID userId, UUID bookId) {
+    UserBook userBook = userBookQueryService.getUserBookByBookId(BookId.of(bookId));
+
+    if (!userBook.getUserId().toUUID().equals(userId)) {
+      throw new UserBookAccessDeniedException(UserId.of(userId), BookId.of(bookId));
+    }
+
+    userBookManageService.deleteByBookId(BookId.of(bookId));
   }
 
   @Override
