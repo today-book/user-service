@@ -83,4 +83,3 @@ class UserBookManageServiceIT {
         UserBookNotFoundException.class, () -> userBookManageService.deleteById(Long.MAX_VALUE));
   }
 }
-
