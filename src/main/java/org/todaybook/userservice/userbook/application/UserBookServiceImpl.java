@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.todaybook.userservice.user.domain.UserId;
 import org.todaybook.userservice.userbook.application.dto.UserBookMapper;
-import org.todaybook.userservice.userbook.domain.Book;
 import org.todaybook.userservice.userbook.domain.BookId;
+import org.todaybook.userservice.userbook.domain.BookSnapshot;
 import org.todaybook.userservice.userbook.domain.UserBook;
 import org.todaybook.userservice.userbook.domain.exception.UserBookAccessDeniedException;
 import org.todaybook.userservice.userbook.domain.service.UserBookManageService;
@@ -29,14 +29,14 @@ public class UserBookServiceImpl implements UserBookService {
 
   @Override
   public void register(UUID userId, UserBookRequest request) {
-    Book book = UserBookMapper.toBook(request);
-    userBookManageService.save(UserId.of(userId), book);
+    BookSnapshot snapshot = UserBookMapper.toBook(request);
+    userBookManageService.save(UserId.of(userId), snapshot);
   }
 
   @Override
   public void registerAll(UUID userId, List<UserBookRequest> request) {
-    List<Book> books = request.stream().map(UserBookMapper::toBook).toList();
-    userBookManageService.saveAll(UserId.of(userId), books);
+    List<BookSnapshot> ssnapshots = request.stream().map(UserBookMapper::toBook).toList();
+    userBookManageService.saveAll(UserId.of(userId), ssnapshots);
   }
 
   @Override

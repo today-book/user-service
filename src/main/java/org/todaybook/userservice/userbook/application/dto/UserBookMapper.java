@@ -1,12 +1,12 @@
 package org.todaybook.userservice.userbook.application.dto;
 
-import org.todaybook.userservice.userbook.domain.Book;
+import org.todaybook.userservice.userbook.domain.BookSnapshot;
 import org.todaybook.userservice.userbook.presentation.dto.UserBookRequest;
 
 public class UserBookMapper {
 
-  public static Book toBook(UserBookRequest request) {
-    return new Book(
+  public static BookSnapshot toBook(UserBookRequest request) {
+    return new BookSnapshot(
         request.bookId(),
         request.isbn(),
         request.author(),

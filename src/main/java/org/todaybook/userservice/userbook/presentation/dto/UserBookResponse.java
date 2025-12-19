@@ -2,14 +2,14 @@ package org.todaybook.userservice.userbook.presentation.dto;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-import org.todaybook.userservice.userbook.domain.Book;
+import org.todaybook.userservice.userbook.domain.BookSnapshot;
 import org.todaybook.userservice.userbook.domain.UserBook;
 
 public record UserBookResponse(
     Long id,
     UUID userId,
     UUID bookId,
-    Book book,
+    BookSnapshot snapshot,
     LocalDateTime createdAt,
     LocalDateTime updatedAt) {
   public static UserBookResponse from(UserBook userBook) {
@@ -17,7 +17,7 @@ public record UserBookResponse(
         userBook.getId(),
         userBook.getUserId().toUUID(),
         userBook.getBookId().toUUID(),
-        userBook.getBook(),
+        userBook.getSnapshot(),
         userBook.getCreatedAt(),
         userBook.getUpdatedAt());
   }

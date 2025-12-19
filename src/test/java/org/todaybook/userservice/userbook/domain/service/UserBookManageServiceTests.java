@@ -18,8 +18,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.todaybook.userservice.user.domain.UserId;
 import org.todaybook.userservice.userbook.BookFixture;
-import org.todaybook.userservice.userbook.domain.Book;
 import org.todaybook.userservice.userbook.domain.BookId;
+import org.todaybook.userservice.userbook.domain.BookSnapshot;
 import org.todaybook.userservice.userbook.domain.UserBook;
 import org.todaybook.userservice.userbook.domain.exception.UserBookAlreadyExistsException;
 import org.todaybook.userservice.userbook.domain.exception.UserBookNotFoundException;
@@ -38,12 +38,12 @@ class UserBookManageServiceTests {
     UserId userId = UserId.generateId();
 
     BookId bookId = BookId.of(UUID.randomUUID());
-    Book book = BookFixture.book(bookId.toUUID());
+    BookSnapshot snapshot = BookFixture.book(bookId.toUUID());
 
     when(repository.findByUserIdAndBookId(userId, bookId)).thenReturn(Optional.empty());
     when(repository.save(any(UserBook.class))).thenAnswer(inv -> inv.getArgument(0));
 
-    UserBook result = userBookManageService.save(userId, book);
+    UserBook result = userBookManageService.save(userId, snapshot);
 
     assertNotNull(result);
     verify(repository).save(any(UserBook.class));
@@ -55,14 +55,14 @@ class UserBookManageServiceTests {
     UserId userId = UserId.generateId();
 
     BookId bookId = BookId.of(UUID.randomUUID());
-    Book book = BookFixture.book(bookId.toUUID());
+    BookSnapshot snapshot = BookFixture.book(bookId.toUUID());
 
-    UserBook existing = UserBook.create(userId, book);
+    UserBook existing = UserBook.create(userId, snapshot);
 
     when(repository.findByUserIdAndBookId(userId, bookId)).thenReturn(Optional.of(existing));
 
     assertThrows(
-        UserBookAlreadyExistsException.class, () -> userBookManageService.save(userId, book));
+        UserBookAlreadyExistsException.class, () -> userBookManageService.save(userId, snapshot));
     verify(repository, never()).save(any());
   }
 

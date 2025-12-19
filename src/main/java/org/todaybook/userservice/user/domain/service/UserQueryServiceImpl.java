@@ -18,15 +18,11 @@ public class UserQueryServiceImpl implements UserQueryService {
 
   @Override
   public User getUserById(UserId userId) {
-    return repository
-        .findById(userId)
-        .orElseThrow(() -> new UserNotFoundException("userId", userId.toString()));
+    return repository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
   }
 
   @Override
   public User getUserByKakaoId(KakaoId kakaoId) {
-    return repository
-        .findByKakaoId(kakaoId)
-        .orElseThrow(() -> new UserNotFoundException("kakaoId", kakaoId.toString()));
+    return repository.findByKakaoId(kakaoId).orElseThrow(() -> new UserNotFoundException(kakaoId));
   }
 }

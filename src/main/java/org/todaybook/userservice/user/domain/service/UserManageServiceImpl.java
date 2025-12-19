@@ -33,9 +33,7 @@ public class UserManageServiceImpl implements UserManageService {
 
   @Override
   public void deleteById(UserId userId) {
-    repository
-        .findById(userId)
-        .orElseThrow(() -> new UserNotFoundException("userId", userId.toString()));
+    repository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
 
     repository.deleteById(userId);
   }

@@ -10,13 +10,13 @@ public enum Role {
 
   public static Role fromString(String role) {
     if (role == null || role.isBlank()) {
-      throw new UserInvalidRoleException("역할(role)은 빈 값일 수 없습니다.");
+      throw new UserInvalidRoleException();
     }
 
     try {
       return Role.valueOf(role.toUpperCase());
     } catch (IllegalArgumentException e) {
-      throw new UserInvalidRoleException(e, role);
+      throw new UserInvalidRoleException(role);
     }
   }
 }

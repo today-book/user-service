@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.todaybook.userservice.user.domain.UserId;
-import org.todaybook.userservice.userbook.domain.Book;
 import org.todaybook.userservice.userbook.domain.BookId;
+import org.todaybook.userservice.userbook.domain.BookSnapshot;
 import org.todaybook.userservice.userbook.domain.UserBook;
 import org.todaybook.userservice.userbook.domain.exception.UserBookAlreadyExistsException;
 import org.todaybook.userservice.userbook.domain.exception.UserBookNotFoundException;
@@ -23,8 +23,8 @@ public class UserBookManageServiceImpl implements UserBookManageService {
   private final UserBookRepository repository;
 
   @Override
-  public UserBook save(UserId userId, Book book) {
-    BookId bookId = BookId.of(book.id());
+  public UserBook save(UserId userId, BookSnapshot snapshot) {
+    BookId bookId = BookId.of(snapshot.bookId());
 
     repository
         .findByUserIdAndBookId(userId, bookId)
@@ -33,28 +33,28 @@ public class UserBookManageServiceImpl implements UserBookManageService {
               throw new UserBookAlreadyExistsException(userId, bookId);
             });
 
-    UserBook userBook = UserBook.create(userId, book);
+    UserBook userBook = UserBook.create(userId, snapshot);
 
     return repository.save(userBook);
   }
 
   @Override
-  public List<UserBook> saveAll(UserId userId, List<Book> books) {
-    List<BookId> bookIds = books.stream().map(book -> BookId.of(book.id())).toList();
+  public List<UserBook> saveAll(UserId userId, List<BookSnapshot> snapshots) {
+    List<BookId> bookIds = snapshots.stream().map(book -> BookId.of(book.bookId())).toList();
 
     Map<BookId, UserBook> existing =
         repository.findByUserIdAndBookIds(userId, bookIds).stream()
             .collect(Collectors.toMap(UserBook::getBookId, Function.identity()));
 
     List<UserBook> result =
-        books.stream()
+        snapshots.stream()
             .map(
                 book -> {
-                  BookId bookId = BookId.of(book.id());
+                  BookId bookId = BookId.of(book.bookId());
                   UserBook userBook = existing.get(bookId);
 
                   if (userBook != null) {
-                    return userBook.updateBook(book);
+                    return userBook.updateSnapshot(book);
                   }
 
                   return UserBook.create(userId, book);
