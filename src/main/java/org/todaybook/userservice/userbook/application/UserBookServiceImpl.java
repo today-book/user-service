@@ -39,8 +39,13 @@ public class UserBookServiceImpl implements UserBookService {
   }
 
   @Override
-  public void delete(UUID userId, Long id) {
-    userBookQueryService.getUserBookByUserId(UserId.of(userId), id);
+  public void deleteById(UUID userId, Long id) {
+    UserBook userBook = userBookQueryService.getUserBookById(id);
+
+    if (!userBook.getUserId().toUUID().equals(userId)) {
+      throw new UserBookAccessDeniedException(id);
+    }
+
     userBookManageService.deleteById(id);
   }
 
@@ -51,13 +56,18 @@ public class UserBookServiceImpl implements UserBookService {
   }
 
   @Override
-  public UserBookResponse getUserBookByUserId(UUID userId, Long id) {
-    UserBook userBook = userBookQueryService.getUserBookByUserId(UserId.of(userId), id);
+  public UserBookResponse getOwnedUserBook(UUID userId, Long id) {
+    UserBook userBook = userBookQueryService.getUserBookById(id);
+
+    if (!userBook.getUserId().toUUID().equals(userId)) {
+      throw new UserBookAccessDeniedException(id);
+    }
+
     return UserBookResponse.from(userBook);
   }
 
   @Override
-  public List<UserBookResponse> getUserBooksByUserId(UUID userId) {
+  public List<UserBookResponse> getOwnedUserBooks(UUID userId) {
     List<UserBook> userBooks = userBookQueryService.getUserBooksByUserId(UserId.of(userId));
     return userBooks.stream().map(UserBookResponse::from).toList();
   }

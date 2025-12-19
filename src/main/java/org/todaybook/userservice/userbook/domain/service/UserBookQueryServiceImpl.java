@@ -26,15 +26,8 @@ public class UserBookQueryServiceImpl implements UserBookQueryService {
   }
 
   @Override
-  public UserBook getUserBookByUserId(UserId userId, Long id) {
-    UserBook userBook =
-        repository.findById(id).orElseThrow(() -> new UserBookNotFoundException(id));
-
-    if (!userBook.getUserId().equals(userId)) {
-      throw new UserBookAccessDeniedException(id);
-    }
-
-    return userBook;
+  public UserBook getUserBookByBookId(BookId bookId) {
+    return repository.findByBookId(bookId).orElseThrow(() -> new UserBookNotFoundException(bookId));
   }
 
   @Override

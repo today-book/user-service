@@ -15,9 +15,9 @@ public interface UserBookService {
 
   UserBookResponse getUserBookById(Long id);
 
-  UserBookResponse getUserBookByUserId(UUID userId, Long id);
+  UserBookResponse getOwnedUserBook(UUID userId, Long id);
 
-  List<UserBookResponse> getUserBooksByUserId(UUID userId);
+  List<UserBookResponse> getOwnedUserBooks(UUID userId);
 
   boolean isSavedBook(UUID userId, UUID bookId);
 

@@ -10,8 +10,6 @@ public interface UserBookQueryService {
 
   UserBook getUserBookById(Long id);
 
-  UserBook getUserBookByUserId(UserId userId, Long id);
-
   List<UserBook> getUserBooksByUserId(UserId userId);
 
   boolean isSavedBook(UserId userId, BookId bookId);

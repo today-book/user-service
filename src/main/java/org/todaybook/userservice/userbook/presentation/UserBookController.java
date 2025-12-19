@@ -49,13 +49,13 @@ public class UserBookController {
   @GetMapping("/{id}")
   public UserBookResponse getUserBookById(
       @AuthenticationPrincipal AuthenticatedUser authentication, @PathVariable Long id) {
-    return userBookService.getUserBookByUserId(authentication.userId(), id);
+    return userBookService.getOwnedUserBook(authentication.userId(), id);
   }
 
   @GetMapping
   public List<UserBookResponse> getUserBooksByUserId(
       @AuthenticationPrincipal AuthenticatedUser authentication) {
-    return userBookService.getUserBooksByUserId(authentication.userId());
+    return userBookService.getOwnedUserBooks(authentication.userId());
   }
 
   @GetMapping("/saved/{bookId}")
