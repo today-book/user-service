@@ -10,7 +10,7 @@ public interface UserBookQueryService {
 
   UserBook getUserBookById(Long id);
 
-  UserBook getUserBookByUserId(UserId userId, Long id);
+  UserBook getUserBookByBookId(BookId bookId);
 
   List<UserBook> getUserBooksByUserId(UserId userId);
 

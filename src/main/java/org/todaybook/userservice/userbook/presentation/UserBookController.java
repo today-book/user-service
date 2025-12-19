@@ -43,19 +43,25 @@ public class UserBookController {
   @DeleteMapping("/{id}")
   public void delete(
       @AuthenticationPrincipal AuthenticatedUser authentication, @PathVariable Long id) {
-    userBookService.delete(authentication.userId(), id);
+    userBookService.deleteById(authentication.userId(), id);
+  }
+
+  @DeleteMapping("/book/{bookId}")
+  public void deleteByBookId(
+      @AuthenticationPrincipal AuthenticatedUser authentication, @PathVariable UUID bookId) {
+    userBookService.deleteByBookId(authentication.userId(), bookId);
   }
 
   @GetMapping("/{id}")
   public UserBookResponse getUserBookById(
       @AuthenticationPrincipal AuthenticatedUser authentication, @PathVariable Long id) {
-    return userBookService.getUserBookByUserId(authentication.userId(), id);
+    return userBookService.getOwnedUserBook(authentication.userId(), id);
   }
 
   @GetMapping
   public List<UserBookResponse> getUserBooksByUserId(
       @AuthenticationPrincipal AuthenticatedUser authentication) {
-    return userBookService.getUserBooksByUserId(authentication.userId());
+    return userBookService.getOwnedUserBooks(authentication.userId());
   }
 
   @GetMapping("/saved/{bookId}")

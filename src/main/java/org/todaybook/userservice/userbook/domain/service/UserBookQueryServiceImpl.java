@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.todaybook.userservice.user.domain.UserId;
 import org.todaybook.userservice.userbook.domain.BookId;
 import org.todaybook.userservice.userbook.domain.UserBook;
-import org.todaybook.userservice.userbook.domain.exception.UserBookAccessDeniedException;
 import org.todaybook.userservice.userbook.domain.exception.UserBookNotFoundException;
 import org.todaybook.userservice.userbook.domain.repository.UserBookRepository;
 
@@ -26,15 +25,8 @@ public class UserBookQueryServiceImpl implements UserBookQueryService {
   }
 
   @Override
-  public UserBook getUserBookByUserId(UserId userId, Long id) {
-    UserBook userBook =
-        repository.findById(id).orElseThrow(() -> new UserBookNotFoundException(id));
-
-    if (!userBook.getUserId().equals(userId)) {
-      throw new UserBookAccessDeniedException(id);
-    }
-
-    return userBook;
+  public UserBook getUserBookByBookId(BookId bookId) {
+    return repository.findByBookId(bookId).orElseThrow(() -> new UserBookNotFoundException(bookId));
   }
 
   @Override

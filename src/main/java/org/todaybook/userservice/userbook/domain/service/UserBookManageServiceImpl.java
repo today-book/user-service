@@ -24,11 +24,13 @@ public class UserBookManageServiceImpl implements UserBookManageService {
 
   @Override
   public UserBook save(UserId userId, Book book) {
+    BookId bookId = BookId.of(book.id());
+
     repository
-        .findByUserIdAndBookId(userId, BookId.of(book.id()))
+        .findByUserIdAndBookId(userId, bookId)
         .ifPresent(
             userBook -> {
-              throw new UserBookAlreadyExistsException(userId, book.id());
+              throw new UserBookAlreadyExistsException(userId, bookId);
             });
 
     UserBook userBook = UserBook.create(userId, book);
@@ -67,5 +69,12 @@ public class UserBookManageServiceImpl implements UserBookManageService {
     repository.findById(id).orElseThrow(() -> new UserBookNotFoundException(id));
 
     repository.deleteById(id);
+  }
+
+  @Override
+  public void deleteByBookId(BookId bookId) {
+    repository.findByBookId(bookId).orElseThrow(() -> new UserBookNotFoundException(bookId));
+
+    repository.deleteByBookId(bookId);
   }
 }

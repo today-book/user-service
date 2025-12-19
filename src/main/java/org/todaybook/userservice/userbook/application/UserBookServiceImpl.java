@@ -13,6 +13,7 @@ import org.todaybook.userservice.userbook.application.dto.UserBookMapper;
 import org.todaybook.userservice.userbook.domain.Book;
 import org.todaybook.userservice.userbook.domain.BookId;
 import org.todaybook.userservice.userbook.domain.UserBook;
+import org.todaybook.userservice.userbook.domain.exception.UserBookAccessDeniedException;
 import org.todaybook.userservice.userbook.domain.service.UserBookManageService;
 import org.todaybook.userservice.userbook.domain.service.UserBookQueryService;
 import org.todaybook.userservice.userbook.presentation.dto.UserBookRequest;
@@ -39,9 +40,25 @@ public class UserBookServiceImpl implements UserBookService {
   }
 
   @Override
-  public void delete(UUID userId, Long id) {
-    userBookQueryService.getUserBookByUserId(UserId.of(userId), id);
+  public void deleteById(UUID userId, Long id) {
+    UserBook userBook = userBookQueryService.getUserBookById(id);
+
+    if (!userBook.getUserId().toUUID().equals(userId)) {
+      throw new UserBookAccessDeniedException(id);
+    }
+
     userBookManageService.deleteById(id);
+  }
+
+  @Override
+  public void deleteByBookId(UUID userId, UUID bookId) {
+    UserBook userBook = userBookQueryService.getUserBookByBookId(BookId.of(bookId));
+
+    if (!userBook.getUserId().toUUID().equals(userId)) {
+      throw new UserBookAccessDeniedException(UserId.of(userId), BookId.of(bookId));
+    }
+
+    userBookManageService.deleteByBookId(BookId.of(bookId));
   }
 
   @Override
@@ -51,13 +68,18 @@ public class UserBookServiceImpl implements UserBookService {
   }
 
   @Override
-  public UserBookResponse getUserBookByUserId(UUID userId, Long id) {
-    UserBook userBook = userBookQueryService.getUserBookByUserId(UserId.of(userId), id);
+  public UserBookResponse getOwnedUserBook(UUID userId, Long id) {
+    UserBook userBook = userBookQueryService.getUserBookById(id);
+
+    if (!userBook.getUserId().toUUID().equals(userId)) {
+      throw new UserBookAccessDeniedException(id);
+    }
+
     return UserBookResponse.from(userBook);
   }
 
   @Override
-  public List<UserBookResponse> getUserBooksByUserId(UUID userId) {
+  public List<UserBookResponse> getOwnedUserBooks(UUID userId) {
     List<UserBook> userBooks = userBookQueryService.getUserBooksByUserId(UserId.of(userId));
     return userBooks.stream().map(UserBookResponse::from).toList();
   }
