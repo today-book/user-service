@@ -19,23 +19,23 @@ class UserBookTests {
     UserId userId = UserId.generateId();
 
     BookId bookId = BookId.of(UUID.randomUUID());
-    Book book = BookFixture.book(bookId.toUUID());
+    BookSnapshot snapshot = BookFixture.book(bookId.toUUID());
 
-    UserBook userBook = UserBook.create(userId, book);
+    UserBook userBook = UserBook.create(userId, snapshot);
 
     assertEquals(userId, userBook.getUserId());
     assertEquals(bookId, userBook.getBookId());
-    assertEquals(book, userBook.getBook());
+    assertEquals(snapshot, userBook.getSnapshot());
   }
 
   @Test
   @DisplayName("UserBook 생성 실패 - userId null")
   void test2() {
     BookId bookId = BookId.of(UUID.randomUUID());
-    Book book = BookFixture.book(bookId.toUUID());
+    BookSnapshot snapshot = BookFixture.book(bookId.toUUID());
 
     Exception exception =
-        assertThrows(IllegalArgumentException.class, () -> UserBook.create(null, book));
+        assertThrows(IllegalArgumentException.class, () -> UserBook.create(null, snapshot));
 
     System.out.println("message: " + exception.getMessage());
   }
@@ -43,11 +43,11 @@ class UserBookTests {
   @Test
   @DisplayName("UserBook 생성 실패 - book 필수 값 누락")
   void test3() {
-    Book book = BookFixture.invalidBook(null);
+    BookSnapshot snapshot = BookFixture.invalidBook(null);
 
     Exception exception =
         assertThrows(
-            IllegalArgumentException.class, () -> UserBook.create(UserId.generateId(), book));
+            IllegalArgumentException.class, () -> UserBook.create(UserId.generateId(), snapshot));
 
     System.out.println("message: " + exception.getMessage());
   }
@@ -57,26 +57,26 @@ class UserBookTests {
   void test4() {
     UUID bookId = UUID.randomUUID();
 
-    Book book1 = BookFixture.book(bookId);
-    UserBook userBook = UserBook.create(UserId.generateId(), book1);
+    BookSnapshot snapshot1 = BookFixture.book(bookId);
+    UserBook userBook = UserBook.create(UserId.generateId(), snapshot1);
 
-    Book book2 = BookFixture.book(bookId);
+    BookSnapshot snapshot2 = BookFixture.book(bookId);
 
-    UserBook updated = userBook.updateBook(book2);
+    UserBook updated = userBook.updateSnapshot(snapshot2);
 
-    assertEquals(updated.getBook(), book2);
+    assertEquals(updated.getSnapshot(), snapshot2);
   }
 
   @Test
   @DisplayName("updateBook 실패 - 도서 아이디(bookId)가 다를 경우")
   void test5() {
-    Book book1 = BookFixture.book(UUID.randomUUID());
-    UserBook userBook = UserBook.create(UserId.generateId(), book1);
+    BookSnapshot snapshot = BookFixture.book(UUID.randomUUID());
+    UserBook userBook = UserBook.create(UserId.generateId(), snapshot);
 
-    Book book2 = BookFixture.book(UUID.randomUUID());
+    BookSnapshot snapshot2 = BookFixture.book(UUID.randomUUID());
 
     Exception exception =
-        assertThrows(IllegalStateException.class, () -> userBook.updateBook(book2));
+        assertThrows(IllegalStateException.class, () -> userBook.updateSnapshot(snapshot2));
 
     System.out.println("message: " + exception.getMessage());
   }
@@ -86,13 +86,13 @@ class UserBookTests {
   void test6() {
     UUID bookId = UUID.randomUUID();
 
-    Book book1 = BookFixture.book(bookId);
-    UserBook userBook = UserBook.create(UserId.generateId(), book1);
+    BookSnapshot snapshot = BookFixture.book(bookId);
+    UserBook userBook = UserBook.create(UserId.generateId(), snapshot);
 
-    Book book2 = BookFixture.invalidBook(bookId);
+    BookSnapshot snapshot2 = BookFixture.invalidBook(bookId);
 
     Exception exception =
-        assertThrows(IllegalArgumentException.class, () -> userBook.updateBook(book2));
+        assertThrows(IllegalArgumentException.class, () -> userBook.updateSnapshot(snapshot2));
 
     System.out.println("message: " + exception.getMessage());
   }

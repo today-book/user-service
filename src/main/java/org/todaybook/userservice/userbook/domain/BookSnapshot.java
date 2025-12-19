@@ -6,8 +6,8 @@ import java.util.UUID;
 import lombok.Builder;
 
 @Builder
-public record Book(
-    UUID id,
+public record BookSnapshot(
+    UUID bookId,
     String isbn,
     String title,
     String author,
