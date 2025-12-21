@@ -39,7 +39,7 @@ class ShareControllerTests {
 
     mockMvc
         .perform(
-            put("/api/v1/shares/book/{token}", token)
+            put("/public/v1/shares/book/{token}", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().isOk());
@@ -53,14 +53,14 @@ class ShareControllerTests {
 
     mockMvc
         .perform(
-            put("/api/v1/shares/book/{token}", token)
+            put("/public/v1/shares/book/{token}", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().isOk());
 
     String response =
         mockMvc
-            .perform(get("/api/v1/shares/book/{token}", token))
+            .perform(get("/public/v1/shares/book/{token}", token))
             .andExpect(status().isOk())
             .andReturn()
             .getResponse()
