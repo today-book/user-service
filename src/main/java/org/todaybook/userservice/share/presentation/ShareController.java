@@ -14,7 +14,7 @@ import org.todaybook.userservice.share.presentation.dto.SharedBookResponse;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/shares")
+@RequestMapping("/public/v1/users/share")
 public class ShareController {
 
   private final ShareService shareService;
