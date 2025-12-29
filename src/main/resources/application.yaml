@@ -36,15 +36,11 @@ todaybook:
 
 eureka:
   instance:
-    prefer-ip-address: true
-    ip-address: ${EUREKA_INSTANCE_IP_ADDRESS:}
-    non-secure-port: ${EUREKA_INSTANCE_NONSECUREPORT}
-    instance-id: ${spring.application.name}:${eureka.instance.ip-address:${spring.cloud.client.ip-address}}:${eureka.instance.non-secure-port}
+    hostname: user-service
+    prefer-ip-address: false
   client:
-    register-with-eureka: true
-    fetch-registry: true
     service-url:
-      defaultZone: http://ip-10-0-10-218.ap-northeast-2.compute.internal:9100/eureka/
+      defaultZone: http://eureka-server:9100/eureka/
 
 management:
   endpoints:
